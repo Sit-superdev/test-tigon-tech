@@ -476,6 +476,9 @@ export default {
   .width-member-mobile{
     width:100%
   }
+  .width-member {
+    width: 100%;
+  }
 }
 
 
