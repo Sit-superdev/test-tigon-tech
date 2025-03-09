@@ -142,7 +142,6 @@
           </tr>
         </tbody>
       </table>
-      <div v-else class="text-center">ไม่มีข้อมูล</div>
     </div>
   </div>
 </template>

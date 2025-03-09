@@ -1,6 +1,7 @@
 <template>
-  <div class="">
-    <h1 v-if="statusHide" class="mt-5 text-center">Lucky Draw</h1>
+  <div 
+  :class=" statusHide ? 'box-lucky-draw' : '' "
+  class="d-flex flex-column justify-content-center align-items-center">
     <LuckyDrawWheel
       class="p-4"
       ref="luckyWheel"
@@ -144,6 +145,9 @@ export default {
 </script>
 
 <style>
+.box-lucky-draw {
+  height:100vh;
+}
 .winners-history {
   margin-top: 30px;
   padding: 20px;
@@ -153,6 +157,7 @@ export default {
   max-height: 200px;
   overflow-y: auto;
 }
+
 
 @keyframes highlight {
   0% {

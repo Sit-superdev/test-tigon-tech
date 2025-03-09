@@ -1,7 +1,7 @@
 <template>
   <div class="wheel-container">
     <div v-if="itemsReward?.length === 0" class="empty-wheel-message">
-      กรุณาเพิ่มรายการเพื่อเริ่มการสุ่ม
+      รอรายชื่อผู้ที่สุ่มรางวัล
     </div>
 
     <div v-else class="wheel-wrapper cursor-pointer"  
