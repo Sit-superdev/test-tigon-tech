@@ -10,9 +10,9 @@
       :spinning="spinning"
       @spin-complete="handleSpinComplete"
     />
-
+    <h3 v-if="winnersReward.length > 0 && statusHide" class="text-center">ประวัติผู้ได้รับรางวัล ({{ winnersReward.length }})</h3>
     <div v-if="winnersReward.length > 0 && statusHide" class="winners-history w-100 container">
-      <h3>ประวัติผู้ได้รับรางวัล ({{ winnersReward.length }})</h3>
+  
 
       <table class="table">
         <thead>
