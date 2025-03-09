@@ -14,20 +14,17 @@
       <button @click="loadSampleData" class="btn btn-primary btn-sm">
         โหลดข้อมูลตัวอย่าง (A1-A{{ sampleCount }})
       </button>
-
-
-
-
     </div>
-
     <div class="d-flex flex-wrap justify-content-start align-items-center  gap-2">
       <input
         v-model="newItem"
         placeholder="ใส่ชื่อหรือรายการที่ต้องการสุ่ม"
         class="form-control width-member"
-        @change="addItem"
         @keyup.enter="addItem"
       />
+      <button @click="addItem" class="btn btn-primary btn-sm">
+        <font-awesome-icon  icon="plus"  />
+      </button>
 
       <button
         @click="spinWheel"
@@ -126,8 +123,8 @@
                     ref="editInput"
                   />
                   <div class="edit-buttons">
-                    <button @click="saveEdit" class="save-btn">บันทึก</button>
-                    <button @click="cancelEdit" class="cancel-btn">
+                    <button @click="saveEdit" class="btn btn-primary btn-sm">บันทึก</button>
+                    <button @click="cancelEdit" class="btn btn-outline-primary btn-sm">
                       ยกเลิก
                     </button>
                   </div>
@@ -258,9 +255,7 @@ export default {
         this.newItem = "";
         roomService.addPeople({ items: this.itemsReward });
       }
-      else {
-        alert("กรุณาใส่ชื่อหรือรายการที่ต้องการสุ่ม");
-      }
+
     },
 
     removeItem(index) {
@@ -461,43 +456,11 @@ export default {
   border-radius: 3px;
 }
 
-.save-btn {
-  background: #2196f3;
-  color: white;
-  border: none;
-  padding: 2px 8px;
-  cursor: pointer;
-  border-radius: 3px;
-}
 
-.cancel-btn {
-  background: #9e9e9e;
-  color: white;
-  border: none;
-  padding: 2px 8px;
-  cursor: pointer;
-  border-radius: 3px;
-}
 
-.winners-history {
-  margin-top: 30px;
-  padding: 20px;
-  background-color: #f0f8ff;
-  border-radius: 10px;
-  text-align: left;
-  max-height: 200px;
-  overflow-y: auto;
-}
 
-.winners-history ul {
-  list-style-type: none;
-  padding: 0;
-}
 
-.winners-history li {
-  padding: 8px;
-  border-bottom: 1px solid #e0e0e0;
-}
+
 
 .width-member {
   width: 250px;
