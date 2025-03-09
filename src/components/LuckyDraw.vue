@@ -4,7 +4,10 @@
       กรุณาเพิ่มรายการเพื่อเริ่มการสุ่ม
     </div>
 
-    <div v-else class="wheel-wrapper cursor-pointer" @click="eventSpin">
+    <div v-else class="wheel-wrapper cursor-pointer"  
+    @click="eventSpin"
+    @touchstart.prevent="eventSpin"
+    >
       <div class="wheel-pointer"></div>
       <canvas ref="wheelCanvas" class="wheel-canvas"></canvas>
     </div>

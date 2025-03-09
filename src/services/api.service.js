@@ -7,7 +7,6 @@ export const luckyDrawService = {
   }
 };
 
-
 export const roomService = {
   // สร้างห้องใหม่
 
@@ -24,6 +23,10 @@ export const roomService = {
 
   removePeople(roomData) {
     return axios.post("/remove-people", roomData);
+  },
+
+  testPusher(roomData) {
+    return axios.post("/test-pusher", roomData);
   }
 };
 
