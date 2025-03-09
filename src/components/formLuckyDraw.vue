@@ -11,7 +11,7 @@
       @spin-complete="handleSpinComplete"
     />
 
-    <div v-if="winnersReward.length > 0 && statusHide" class="winners-history">
+    <div v-if="winnersReward.length > 0 && statusHide" class="winners-history w-100 container">
       <h3>ประวัติผู้ได้รับรางวัล ({{ winnersReward.length }})</h3>
 
       <table class="table">
