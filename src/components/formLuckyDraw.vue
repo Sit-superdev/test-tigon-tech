@@ -19,7 +19,6 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">ชื่อ</th>
-            <th scope="col">วันที่</th>
           </tr>
         </thead>
         <tbody>
@@ -29,7 +28,6 @@
           >
             <td>{{ index + 1 }}</td>
             <td>{{ winner }}</td>
-            <td>{{ new Date().toLocaleString() }}</td>
           </tr>
         </tbody>
       </table>

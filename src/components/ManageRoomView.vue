@@ -94,33 +94,20 @@
             <th>ลำดับ</th>
             <th>ชื่อ</th>
             <th v-if="showAll === 'all'">รางวัล</th>
-            <th>วันที่</th>
             <th>การดำเนินการ</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in displayedItems" :key="index">
             <td>{{ index + 1 }}</td>
-            <td>{{ item }}</td>
-            <td v-if="showAll === 'all'">
-              <font-awesome-icon v-if="displayReward(item)" icon="trophy" />
-            </td>
-
-            <td>{{ new Date().toLocaleString() }}</td>
-
             <td>
-              <div v-if="showAll == 'winners'">
-                <button @click="tradeWinner(item,index)" class="btn btn-primary btn-sm">
-                  <font-awesome-icon icon="trash" />
-                </button>
-              </div>
-              <div v-else>
-                <div v-if="editingIndex === index">
+                <div class="d-flex align-items-center gap-2" v-if="editingIndex === index">
                   <input
-                    v-model="editingText"
+                    v-model="displayedItems[index]"
                     @keyup.enter="saveEdit"
                     @keyup.esc="cancelEdit"
                     ref="editInput"
+                    class="form-control width-member"
                   />
                   <div class="edit-buttons">
                     <button @click="saveEdit" class="btn btn-primary btn-sm">บันทึก</button>
@@ -129,7 +116,23 @@
                     </button>
                   </div>
                 </div>
-                <div v-else class="action-buttons">
+                <div v-else>
+                  {{ item }}
+                </div>
+              
+            </td>
+            <td v-if="showAll === 'all'">
+              <font-awesome-icon v-if="displayReward(item)" icon="trophy" />
+            </td>
+
+            <td>
+              <div v-if="showAll == 'winners'">
+                <button @click="tradeWinner(item,index)" class="btn btn-primary btn-sm text-center">
+                  <font-awesome-icon icon="trash" />
+                </button>
+              </div>
+              <div v-else-if="editingIndex !== index">
+                <div  class="action-buttons text-center">
                   <button @click="editItem(index)" class="edit-btn">
                     <font-awesome-icon icon="pen" />
                   </button>
@@ -162,6 +165,7 @@ export default {
       newItem: "",
       spinning: false,
       winners: [],
+      originText:"",
       lastWinner: null,
       editingIndex: -1,
       editingText: "",
@@ -182,7 +186,7 @@ export default {
         return [];
       }
     },
-    displayReward(item) {
+    displayReward() {
       return (item) => {
         if (this.winnersReward.includes(item)) {
           return true;
@@ -317,12 +321,32 @@ export default {
 
     editItem(index) {
       this.editingIndex = index;
-      this.editingText = this.itemsReward[index];
+      this.originText=this.displayedItems[this.editingIndex]
     },
 
     saveEdit() {
-      if (this.editingIndex >= 0 && this.editingText.trim()) {
-        this.itemsReward[this.editingIndex] = this.editingText.trim();
+      console.log(this.displayedItems[this.editingIndex].trim(),'this.displayedItems[this.editingIndex].trim()');
+      if (this.editingIndex >= 0 && this.displayedItems[this.editingIndex].trim()) {
+        let dataWinner = [...this.winnersReward]
+        let dataItems = [...this.itemsReward]
+        let dataAll = [...this.displayedItems]
+
+
+        if(dataWinner.includes(this.originText)){
+          let dataIndex = dataWinner.indexOf(this.originText)
+          dataWinner[dataIndex] = this.displayedItems[this.editingIndex].trim()
+          this.setWinnersReward(dataWinner)
+        }
+        else if(dataItems.includes(this.originText)){
+          console.log(this.editingIndex,'this.editingIndex');
+          console.log(this.displayedItems[this.editingIndex].trim(),'this.displayedItems[this.editingIndex].trim()');  
+          let dataIndex = dataItems.indexOf(this.originText)
+            dataItems[dataIndex] = this.displayedItems[this.editingIndex].trim()
+            this.setItemsReward(dataItems) 
+        }
+
+        
+        
         roomService.updatePeople({ items: this.itemsReward });
         this.cancelEdit();
       } else {
@@ -455,17 +479,9 @@ export default {
   border-radius: 3px;
 }
 
-
-
-
-
-
-
 .width-member {
   width: 250px;
 }
-
-
 
 .width-member-mobile {
   width: content;

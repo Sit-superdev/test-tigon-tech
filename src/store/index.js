@@ -17,7 +17,6 @@ export default createStore({
   },
   actions: {
     setItemsReward(context, newItems) {
-      console.log("action-increment");
       context.commit("setItemsReward", newItems);
     },
     setWinnersReward(context, newWinners) {
