@@ -325,7 +325,6 @@ export default {
     },
 
     saveEdit() {
-      console.log(this.displayedItems[this.editingIndex].trim(),'this.displayedItems[this.editingIndex].trim()');
       if (this.editingIndex >= 0 && this.displayedItems[this.editingIndex].trim()) {
         let dataWinner = [...this.winnersReward]
         let dataItems = [...this.itemsReward]
@@ -338,8 +337,6 @@ export default {
           this.setWinnersReward(dataWinner)
         }
         else if(dataItems.includes(this.originText)){
-          console.log(this.editingIndex,'this.editingIndex');
-          console.log(this.displayedItems[this.editingIndex].trim(),'this.displayedItems[this.editingIndex].trim()');  
           let dataIndex = dataItems.indexOf(this.originText)
             dataItems[dataIndex] = this.displayedItems[this.editingIndex].trim()
             this.setItemsReward(dataItems) 
