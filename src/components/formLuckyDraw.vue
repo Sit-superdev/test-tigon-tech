@@ -88,6 +88,7 @@ export default {
     this.channel = this.$pusher.subscribe("spinner");
 
     this.channel.bind("add-people", (data) => {
+      console.log('add-people', data);
       this.setItemsReward([...data]);
       this.itemsCount = this.itemsReward.length;
     });
