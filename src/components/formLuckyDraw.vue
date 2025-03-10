@@ -103,6 +103,10 @@ export default {
       this.itemsCount = this.itemsReward.length;
     });
 
+    this.channel.bind("remove-reward", (data) => {
+      this.setWinnersReward(data);
+    });
+
     this.channel.bind("spin-wheel", (data) => {
       if (this.$refs.luckyWheel) {
         this.$refs.luckyWheel.spinToAngle(data.randomDegrees); //ไปทำ function ต่อใน LuckyDraw.vue

@@ -22,7 +22,13 @@
         class="form-control width-member"
         @keyup.enter="addItem"
       />
-      <button @click="addItem" class="btn btn-primary btn-sm">
+      <button @click="addItem" class="btn btn-primary btn-sm"
+        v-tooltip="{
+          content: 'เพิ่มรายการ',
+          placement: 'top',
+          trigger: 'hover'
+        }"
+      >
         <font-awesome-icon  icon="plus"  />
       </button>
 
@@ -263,7 +269,21 @@ export default {
 
     removeItem(index) {
       if (confirm("ยืนยันลบรายการ")) {
-        this.setItemsReward(this.itemsReward.filter((_, i) => i !== index));
+
+        let dataAll = [...this.displayedItems]
+        let dataText = dataAll[index]
+        if(this.winnersReward.includes(dataText)){
+          let dataIndex = this.winnersReward.indexOf(dataText)
+          this.setWinnersReward(this.winnersReward.filter((_, i) => i !== dataIndex));
+          roomService.addReward({ items: this.winnersReward });
+        }
+        else if(this.itemsReward.includes(dataText)){
+          let dataIndex = this.itemsReward.indexOf(dataText)
+          this.setItemsReward(this.itemsReward.filter((_, i) => i !== dataIndex));
+          roomService.addPeople({ items: this.itemsReward });
+        }
+
+        this.displayedItems.splice(index, 1);
         roomService.removePeople({ items: this.itemsReward });
       }
     },
@@ -274,6 +294,7 @@ export default {
       this.setWinnersReward([]);
       this.lastWinner = null;
       roomService.removePeople({ items: [] });
+      roomService.removeReward({ items: [] });
     },
 
     async spinWheel() {
@@ -328,20 +349,20 @@ export default {
       if (this.editingIndex >= 0 && this.displayedItems[this.editingIndex].trim()) {
         let dataWinner = [...this.winnersReward]
         let dataItems = [...this.itemsReward]
-        let dataAll = [...this.displayedItems]
 
 
         if(dataWinner.includes(this.originText)){
           let dataIndex = dataWinner.indexOf(this.originText)
           dataWinner[dataIndex] = this.displayedItems[this.editingIndex].trim()
           this.setWinnersReward(dataWinner)
+          roomService.addReward({ items: this.winnersReward });
         }
         else if(dataItems.includes(this.originText)){
           let dataIndex = dataItems.indexOf(this.originText)
             dataItems[dataIndex] = this.displayedItems[this.editingIndex].trim()
             this.setItemsReward(dataItems) 
+            roomService.addPeople({ items: this.itemsReward });
         }
-
         
         
         roomService.updatePeople({ items: this.itemsReward });

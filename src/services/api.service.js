@@ -25,6 +25,10 @@ export const roomService = {
     return axios.post("/remove-people", roomData);
   },
 
+  removeReward(roomData) {
+    return axios.post("/remove-reward", roomData);
+  },
+
   testPusher(roomData) {
     return axios.post("/test-pusher", roomData);
   }
